@@ -33,5 +33,6 @@ clean: ## Delete local dev environment
 
 .PHONY: up
 up: bootstrap ## Run a local development environment
+	go mod vendor
 	tilt up --context kind-$(PROJECT_NAME) --stream
 	tilt down
