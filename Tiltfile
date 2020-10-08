@@ -1,7 +1,9 @@
 allow_k8s_contexts('kind-incluster-leader-election')
+# allow_k8s_contexts('abatilo.cloud')
+# default_registry("ghcr.io/abatilo")
 load('ext://restart_process', 'docker_build_with_restart')
 
-docker_build_with_restart('abatilo/leader-election', '.',
+docker_build_with_restart('incluster-leader-election', '.',
   dockerfile='./build/Dockerfile',
   entrypoint='go run cmd/main.go',
   target='builder',

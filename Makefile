@@ -35,4 +35,5 @@ clean: ## Delete local dev environment
 up: bootstrap ## Run a local development environment
 	go mod vendor
 	tilt up --context kind-$(PROJECT_NAME) --stream
+	# tilt up --context abatilo.cloud --stream
 	tilt down

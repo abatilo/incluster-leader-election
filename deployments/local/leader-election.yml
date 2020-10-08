@@ -19,7 +19,7 @@ spec:
       serviceAccountName: leader-election
       containers:
         - name: leader-election
-          image: abatilo/leader-election
+          image: incluster-leader-election
           env:
             - name: POD_NAME
               valueFrom:

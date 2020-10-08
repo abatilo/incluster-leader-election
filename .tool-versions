@@ -1,4 +1,4 @@
 golang 1.15
 kind 0.8.1
 kubectl 1.18.2
-tilt 0.17.4
+tilt 0.17.7
