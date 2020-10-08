@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"sync/atomic"
@@ -55,13 +53,13 @@ func main() {
 	leaderelection.RunOrDie(ctx, leaderelection.LeaderElectionConfig{
 		Lock:            lock,
 		ReleaseOnCancel: true,
-		LeaseDuration:   2 * time.Second,
-		RenewDeadline:   1 * time.Second,
-		RetryPeriod:     500 * time.Millisecond,
+		LeaseDuration:   15 * time.Second,
+		RenewDeadline:   10 * time.Second,
+		RetryPeriod:     2 * time.Second,
 		Callbacks: leaderelection.LeaderCallbacks{
 			OnStartedLeading: func(ctx context.Context) {
 				atomic.StoreInt32(&leading, 1)
-				log.Println(identifier, "started leading")
+				log.Println(identifier, "started leading testing")
 			},
 			OnStoppedLeading: func() {
 				atomic.StoreInt32(&leading, 0)
@@ -72,18 +70,4 @@ func main() {
 			},
 		},
 	})
-
-	mux := http.NewServeMux()
-	mux.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "pong")
-	})
-
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: mux,
-	}
-
-	log.Println("Listening...")
-	srv.ListenAndServe()
-	<-done
 }
